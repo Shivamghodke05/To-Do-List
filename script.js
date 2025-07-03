@@ -4,8 +4,13 @@ const output = document.querySelector(".task1");
 const addTask = document.querySelector(".toDoList");
 const clear = document.querySelector(".clear");
 
-// Load tasks from localStorage on page load
+
 window.addEventListener("DOMContentLoaded", loadTasks);
+
+clear.addEventListener("click", () => {
+  document.querySelectorAll(".inner-div").forEach((task) => task.remove());
+  localStorage.removeItem("tasks");
+});
 
 add.addEventListener("click", () => {
   if (input.innerText.trim() !== "") {
@@ -13,8 +18,13 @@ add.addEventListener("click", () => {
     div.classList.add("inner-div");
 
     const checkBox = document.createElement("input");
-    checkBox.type = "checkbox"; // small typo fixed
+    checkBox.type = "checkbox";
     checkBox.classList.add("checkBox");
+
+    const task1 = document.createElement("p");
+    task1.classList.add("task");
+    task1.innerText = input.innerText.trim();
+
     checkBox.addEventListener("change", () => {
       if (checkBox.checked) {
         task1.style.textDecoration = "line-through";
@@ -25,10 +35,6 @@ add.addEventListener("click", () => {
       }
       updateLocalStorage();
     });
-
-    const task1 = document.createElement("p");
-    task1.classList.add("task");
-    task1.innerText = input.innerText.trim();
 
     const deleteTask = document.createElement("button");
     deleteTask.classList.add("delete");
@@ -57,21 +63,16 @@ add.addEventListener("click", () => {
   } else {
     alert("This field cannot be empty!");
   }
-
-  clear.addEventListener("click", () => {
-    document.querySelectorAll(".inner-div").forEach((task) => task.remove());
-    localStorage.removeItem("tasks");
-  });
 });
 
 input.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
+    event.preventDefault(); 
     add.click();
-    event.preventDefault();
   }
 });
 
-// load tasks on page load
+
 function loadTasks() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.forEach((taskObj) => {
@@ -127,7 +128,7 @@ function loadTasks() {
   });
 }
 
-// update tasks in localStorage
+
 function updateLocalStorage() {
   const allTasks = document.querySelectorAll(".inner-div");
   let tasks = [];
