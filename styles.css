@@ -72,7 +72,7 @@ body {
   
 }
 
-/* active: push down to mimic press */
+
 .add:active,
 .delete:active {
   transform: translateY(0.5px);
@@ -186,7 +186,7 @@ footer.foot {
   display: block;
   width: fit-content;
   max-width: 90%;
-  margin: 0px auto 20px auto; /* gives breathing space at bottom */
+  margin: 0px auto 20px auto; 
   padding: 12px 16px;
   background: rgba(0, 0, 0, 0.75);
   color: #ffffff;
@@ -201,7 +201,7 @@ footer.foot {
 
 @media screen and (min-width: 768px) {
   footer.foot {
-    float: right; /* aligns footer block to the right */
+    float: right; 
     margin-right: 30px;
   }
 }
